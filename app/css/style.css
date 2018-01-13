@@ -1,0 +1,7 @@
+body { background-color: #fff; margin: 2rem 5%; }
+h1 { color: black; font-family: roboto; display: flex; }
+p { color: gray; }
+ul { list-style: inside; margin: 1rem 0 0 1rem; }
+
+section { display: flex; }
+section ul { flex: 1; margin: 1rem; padding: 1rem; background: skyblue; }
