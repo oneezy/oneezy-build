@@ -19,13 +19,13 @@ var config = {
 
   cssin: 'app/css/**/*.css',
   jsin: 'app/js/**/*.js',
-  imgin: 'app/img/**/*.{jpg,jpeg,png,gif}',
-  htmlin: 'app/*.html',
+  imgin: 'app/images/**/*.{jpg,jpeg,png,gif}',
+  htmlin: 'app/**/*.html',
 
   cssout: 'dist/css/',
   jsout: 'dist/js/',
-  imgout: 'dist/img/',
-  htmlout: 'dist/',
+  imgout: 'dist/images/',
+  htmlout: 'dist/**/*.html',
 
   cssoutname: 'styles.min.css',
   jsoutname: 'scripts.min.js',
