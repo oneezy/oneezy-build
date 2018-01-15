@@ -11,7 +11,6 @@ var htmlmin = require('gulp-htmlmin');
 var del = require('del');
 var rename = require("gulp-rename");
 var sequence = require('run-sequence');
-var htmlreplace = require('gulp-html-replace');
 var useref = require('gulp-useref');
 var gulpif = require('gulp-if');
 
