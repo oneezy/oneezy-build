@@ -17,7 +17,7 @@ var config = {
   dist: 'dist/',
   src: 'app/',
 
-  cssin: 'app/css/**/*.css',
+  cssin: 'app/css/*.css',
   jsin: 'app/js/**/*.js',
   imgin: 'app/images/**/*.{jpg,jpeg,png,gif}',
   htmlin: 'app/**/*.html',
@@ -49,6 +49,21 @@ gulp.task('serve', function() {
   gulp.watch(config.cssin, ['css']);
 });
 
+/* HTML
+************************************/
+gulp.task('html', function() {
+  return gulp.src(config.htmlin)
+    .pipe(htmlreplace({
+      'css': 'css/styles.min.css',
+      'js': 'js/scripts.min.js'
+    }))
+    .pipe(htmlmin({
+      sortAttributes: true,
+      sortClassName: true,
+      collapseWhitespace: true
+    }))
+    .pipe(gulp.dest(config.dist))
+});
 
 /* CSS
 ************************************/
@@ -83,22 +98,6 @@ gulp.task('img', function() {
     .pipe(gulp.dest(config.imgout));
 });
 
-/* HTML
-************************************/
-gulp.task('html', function() {
-  return gulp.src(config.htmlin)
-    .pipe(htmlreplace({
-      'css': 'css/styles.min.css',
-      'js': 'js/scripts.min.js'
-    }))
-    .pipe(htmlmin({
-      sortAttributes: true,
-      sortClassName: true,
-      collapseWhitespace: true
-    }))
-    .pipe(gulp.dest(config.dist))
-});
-
 /* BUILD ENVIRONMENT
 ************************************/
 // Clean
@@ -108,7 +107,7 @@ gulp.task('clean', function() {
 
 // Build
 gulp.task('build', function() {
-  sequence('clean', ['html', 'js', 'css', 'img']);
+  sequence('clean', ['js', 'css', 'img', 'html']);
 
   browsersync({
     server: config.dist
