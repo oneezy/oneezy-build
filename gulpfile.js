@@ -22,7 +22,7 @@ var config = {
   jsin: 'app/js/*.js',
   imgin: 'app/images/**/*.{jpg,jpeg,png,gif}',
   htmlin: 'app/*.html',
-  otherin: 'app/**/*.{json,xml,svg,txt}',
+  otherin: 'app/**/*.{json,xml,svg,txt,ico}',
 
   cssout: 'dist/css/',
   jsout: 'dist/js/',
