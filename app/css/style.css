@@ -4,4 +4,4 @@ p { color: gray; }
 ul { list-style: inside; margin: 1rem 0 0 1rem; }
 
 section { display: flex; }
-section ul { flex: 1; margin: 1rem; padding: 1rem; background: skyblue; }
+section ul { flex: 1; margin: 1rem; padding: 1rem; background: lime; }

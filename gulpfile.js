@@ -12,26 +12,23 @@ var del = require('del');
 var rename = require("gulp-rename");
 var sequence = require('run-sequence');
 var htmlreplace = require('gulp-html-replace');
+var useref = require('gulp-useref');
+var gulpif = require('gulp-if');
 
 var config = {
   dist: 'dist/',
   src: 'app/',
 
   cssin: 'app/css/*.css',
-  jsin: 'app/js/**/*.js',
+  jsin: 'app/js/*.js',
   imgin: 'app/images/**/*.{jpg,jpeg,png,gif}',
-  htmlin: 'app/**/*.html',
+  htmlin: 'app/*.html',
+  otherin: 'app/**/*.{json,xml,svg,txt}',
 
   cssout: 'dist/css/',
   jsout: 'dist/js/',
   imgout: 'dist/images/',
-  htmlout: 'dist/**/*.html',
-
-  cssoutname: 'styles.min.css',
-  jsoutname: 'scripts.min.js',
-
-  cssreplaceout: 'css/style.css',
-  jsreplaceout: 'js/script.js'
+  htmlout: 'dist/'
 };
 
 /* BROWSER SYNC (dev)
@@ -40,41 +37,33 @@ gulp.task('reload', function() {
   browsersync.reload();
 });
 
-gulp.task('serve', function() {
-  browsersync({
-    server: config.src
-  });
-
-  gulp.watch([config.htmlin, config.jsin], ['reload']);
-  gulp.watch(config.cssin, ['css']);
-});
 
 /* HTML
 ************************************/
 gulp.task('html', function() {
   return gulp.src(config.htmlin)
-    .pipe(htmlreplace({
-      'css': 'css/styles.min.css',
-      'js': 'js/scripts.min.js'
-    }))
+    .pipe(useref())
+    .pipe(gulpif( '*.css', autoprefixer({ browsers: ['last 4 versions'], grid: true }) ))
+    .pipe(gulpif( '*.css', cleancss() ))
+    .pipe(gulpif( '*.js', uglify() ))
     .pipe(htmlmin({
       sortAttributes: true,
       sortClassName: true,
       collapseWhitespace: true
     }))
-    .pipe(gulp.dest(config.dist))
+    .pipe(gulp.dest(config.dist));
 });
 
 /* CSS
 ************************************/
 gulp.task('css', function() {
   return gulp.src(config.cssin)
-    .pipe(sourcemaps.init())
-    .pipe(autoprefixer({ browsers: ['last 4 versions'], grid: true }))
-    .pipe(concat(config.cssoutname))
-    .pipe(cleancss())
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest(config.cssout))
+    // .pipe(sourcemaps.init())
+    // .pipe(autoprefixer({ browsers: ['last 4 versions'], grid: true }))
+    // .pipe(concat(config.cssoutname))
+    // .pipe(cleancss())
+    // .pipe(sourcemaps.write())
+    // .pipe(gulp.dest(config.cssout))
     .pipe(browsersync.stream());
 });
 
@@ -82,11 +71,11 @@ gulp.task('css', function() {
 ************************************/
 gulp.task('js', function() {
   return gulp.src(config.jsin)
-    .pipe(sourcemaps.init())
-    .pipe(concat(config.jsoutname))
-    .pipe(uglify())
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest(config.jsout));
+    // .pipe(sourcemaps.init())
+    // .pipe(concat(config.jsoutname))
+    // .pipe(uglify())
+    // .pipe(sourcemaps.write())
+    // .pipe(gulp.dest(config.jsout));
 });
 
 /* IMAGES
@@ -98,25 +87,43 @@ gulp.task('img', function() {
     .pipe(gulp.dest(config.imgout));
 });
 
-/* BUILD ENVIRONMENT
+/* Other
+************************************/
+gulp.task('other', function() {
+  return gulp.src(config.otherin)
+    .pipe(gulp.dest(config.dist));
+});
+
+
+
+
+/* PRODUCTION ENVIRONMENT
 ************************************/
 // Clean
 gulp.task('clean', function() {
   return del([config.dist]);
 });
 
-// Build
+// Start Server
 gulp.task('build', function() {
-  sequence('clean', ['js', 'css', 'img', 'html']);
+  sequence('clean', ['js', 'css', 'img', 'html', 'other']);
 
   browsersync({
     server: config.dist
   });
+});
 
-  gulp.watch([config.htmlin, config.jsin], ['reload']);
+
+/* DEVELOPMENT ENVIRONMENT
+************************************/
+gulp.task('serve', function() {
+  browsersync({
+    server: config.src
+  });
+
+  gulp.watch([config.htmlin, config.jsin, config.otherin], ['reload']);
   gulp.watch(config.cssin, ['css']);
 });
 
-/* DEV ENVIRONMENT
-************************************/
+// Start Server
 gulp.task('default', ['serve']);

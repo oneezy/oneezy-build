@@ -3,9 +3,11 @@
   <head>
     <meta charset="utf-8">
     <title>Homepage</title>
-    <!-- build:css -->
+    <!-- build:css css/styles.min.css -->
+    <link rel="stylesheet" href="css/zebra.css">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/apple.css">
     <!-- endbuild -->
   </head>
   <body>
@@ -18,12 +20,12 @@
     
     <section>
       <ul>
-        <li><a href="01.html">Page 1</a></li>
-        <li><a href="02.html">Page 2</a></li>
-        <li><a href="03.html">Page 3</a></li>
+        <li class="zebra"><a href="01.html">Page 1</a></li>
+        <li class="zebra"><a href="02.html">Page 2</a></li>
+        <li class="zebra"><a href="03.html" class="apple">Page 3</a></li>
       </ul>
     </section>
-    <!-- build:js -->
+    <!-- build:js js/scripts.min.js -->
     <script src="js/plugins.js"></script>
     <script src="js/script.js"></script>
     <!-- endbuild  -->
