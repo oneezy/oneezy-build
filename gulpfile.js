@@ -1,18 +1,18 @@
 var gulp = require('gulp');
-var browsersync = require('browser-sync');
-var sourcemaps = require('gulp-sourcemaps');
 var autoprefixer = require('gulp-autoprefixer');
 var cleancss = require('gulp-clean-css');
 var uglify = require('gulp-uglify');
-var concat = require('gulp-concat');
 var imagemin = require('gulp-imagemin');
 var changed = require('gulp-changed');
 var htmlmin = require('gulp-htmlmin');
 var del = require('del');
-var rename = require("gulp-rename");
 var sequence = require('run-sequence');
 var useref = require('gulp-useref');
 var gulpif = require('gulp-if');
+var browsersync = require('browser-sync');
+var concat = require('gulp-concat');
+var rename = require("gulp-rename");
+var sourcemaps = require('gulp-sourcemaps');
 
 var config = {
   dist: 'dist/',
@@ -21,7 +21,7 @@ var config = {
   cssin: 'app/css/*.css',
   jsin: 'app/js/*.js',
   imgin: 'app/images/**/*.{jpg,jpeg,png,gif}',
-  htmlin: 'app/*.html',
+  htmlin: 'app/**/*.html',
   otherin: 'app/**/*.{json,xml,svg,txt,ico}',
 
   cssout: 'dist/css/',
