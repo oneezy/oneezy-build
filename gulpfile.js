@@ -18,15 +18,15 @@ var config = {
   build: 'build/',
   src: 'src/',
 
-  cssin: 'src/css/*.css',
-  jsin: 'src/js/*.js',
-  imgin: 'src/images/**/*.{jpg,jpeg,png,gif}',
+  cssin: 'src/**/*.css',
+  jsin: 'src/**/*.js',
+  imgin: 'src/**/*.{jpg,jpeg,png,gif}',
   htmlin: 'src/**/*.html',
   otherin: 'src/**/*.{json,xml,svg,txt,ico}',
 
   cssout: 'build/css/',
   jsout: 'build/js/',
-  imgout: 'build/images/',
+  imgout: 'build/',
   htmlout: 'build/'
 };
 
