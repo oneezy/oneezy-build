@@ -1,6 +1,10 @@
 
 # Created by https://www.gitignore.io/api/node,macos,windows,linux
 
+# Build directories
+dist
+build
+
 # Dependency directories
 node_modules
 
