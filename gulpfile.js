@@ -15,19 +15,19 @@ var rename = require("gulp-rename");
 var sourcemaps = require('gulp-sourcemaps');
 
 var config = {
-  dist: 'dist/',
-  src: 'app/',
+  build: 'build/',
+  src: 'src/',
 
-  cssin: 'app/css/*.css',
-  jsin: 'app/js/*.js',
-  imgin: 'app/images/**/*.{jpg,jpeg,png,gif}',
-  htmlin: 'app/**/*.html',
-  otherin: 'app/**/*.{json,xml,svg,txt,ico}',
+  cssin: 'src/css/*.css',
+  jsin: 'src/js/*.js',
+  imgin: 'src/images/**/*.{jpg,jpeg,png,gif}',
+  htmlin: 'src/**/*.html',
+  otherin: 'src/**/*.{json,xml,svg,txt,ico}',
 
-  cssout: 'dist/css/',
-  jsout: 'dist/js/',
-  imgout: 'dist/images/',
-  htmlout: 'dist/'
+  cssout: 'build/css/',
+  jsout: 'build/js/',
+  imgout: 'build/images/',
+  htmlout: 'build/'
 };
 
 /* BROWSER SYNC (dev)
@@ -50,7 +50,7 @@ gulp.task('html', function() {
       sortClassName: true,
       collapseWhitespace: true
     }))
-    .pipe(gulp.dest(config.dist));
+    .pipe(gulp.dest(config.build));
 });
 
 /* CSS
@@ -90,7 +90,7 @@ gulp.task('img', function() {
 ************************************/
 gulp.task('other', function() {
   return gulp.src(config.otherin)
-    .pipe(gulp.dest(config.dist));
+    .pipe(gulp.dest(config.build));
 });
 
 
@@ -100,7 +100,7 @@ gulp.task('other', function() {
 ************************************/
 // Clean
 gulp.task('clean', function() {
-  return del([config.dist]);
+  return del([config.build]);
 });
 
 // Start Server
@@ -108,7 +108,7 @@ gulp.task('build', function() {
   sequence('clean', ['js', 'css', 'img', 'html', 'other']);
 
   browsersync({
-    server: config.dist
+    server: config.build
   });
 });
 
